@@ -68,3 +68,13 @@ brothers(X):-brother(Y,X),write(Y),nl,fail.
 b_s(X,Y):-parent(A,X),parent(A,Y),man(A),X\=Y,nl.
 % b_s(+X) - all brothers and sisters of X
 b_s(X):-b_s(Y,X),write(Y),nl,fail.
+
+% daughter(+X, +Y) - is X a daughter of Y
+daughter(X,Y):-parent(Y,X),woman(X),nl.
+% daughter(+X) - all daughters of X
+daughter(X):-parent(X,Y),woman(Y),write(Y),nl,fail.
+
+% wife(+X, +Y) - is X a wife of Y
+wife(X,Y):-parent(X,A),parent(Y,A),woman(X),X\=Y,nl.
+% wife(+X) - wife of X
+wife(X):-wife(Y,X),write(Y),nl.
