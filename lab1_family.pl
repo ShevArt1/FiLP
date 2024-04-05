@@ -78,3 +78,32 @@ daughter(X):-parent(X,Y),woman(Y),write(Y),nl,fail.
 wife(X,Y):-parent(X,A),parent(Y,A),woman(X),X\=Y,nl.
 % wife(+X) - wife of X
 wife(X):-wife(Y,X),write(Y),nl.
+
+% grandson(+X, +Y) - is X a grandson of Y
+grandson(X,Y):-parent(Y,A),parent(A,X),man(X),nl.
+% grandsons(+X) - all grandsons of X
+grandsons(X):-grandson(Y,X),write(Y),nl,fail.
+
+% gmas(+X, +Y) - are X and Y grandma and grandson
+gmas(X,Y):-grandson(X,Y),woman(Y),nl.
+gmas(X,Y):-grandson(Y,X),woman(X),nl.
+
+% uncle(+X, +Y) - is X an uncle of Y
+uncle(X,Y):-parent(A,Y),brother(X,A),nl.
+% uncles(+X) - all uncles of X
+uncles(X):-uncle(Y,X),write(Y),nl,fail.
+
+
+% OnlyFacts predicates - built by only using facts and nothing but facts
+
+% fgrandsons(+X) - all grandsons of X
+fgrandsons(X):-parent(X,A),parent(A,Y),man(Y),write(Y),nl,fail.
+
+% fgmas(+X, +Y) - are X and Y grandma and grandson
+fgmas(X,Y):-parent(Y,A),parent(A,X),man(X),woman(Y),nl.
+fgmas(X,Y):-parent(X,A),parent(A,Y),man(Y),woman(X),nl.
+
+% funcle(+X, +Y) - is X an uncle of Y
+funcle(X,Y):-parent(A,Y),parent(B,X),parent(B,A),X\=A,man(X),man(B),nl.
+% funcles(+X) - all uncles of X
+funcles(X):-parent(A,X),parent(B,Y),parent(B,A),Y\=A,man(Y),man(B),write(Y),nl,fail.
