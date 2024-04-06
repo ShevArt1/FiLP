@@ -61,6 +61,35 @@ mobile(prolog,0).
 mobile(c,0).
 mobile(asm,0).
 
+%added java
+high(java,1).
+decl(java,0).
+interpret(java,0).
+oop(java,2).
+cross(java,1).
+visual(java,2).
+mobile(java,1).
+
+%added javascript
+high(javascript,1).
+decl(javascript,0).
+interpret(javascript,1).
+oop(javascript,2).
+cross(javascript,1).
+visual(javascript,2).
+mobile(javascript,0).
+
+%added new quality - parallel
+parallel(c_sharp,1).
+parallel(ruby,1).
+parallel(python,1).
+parallel(c_plu_plus,1).
+parallel(f_sharp,0).
+parallel(prolog,0).
+parallel(c,1).
+parallel(asm,0).
+parallel(java,1).
+parallel(javascript,0).
 
 question1(X1):-	write("Is your language high level?"),nl,
 				write("1. Yes"),nl,
@@ -101,10 +130,15 @@ question7(X7):-	write("Is your language for mobile phones?"),nl,
 				write("0. NO"),nl,
 				read(X7).
 
+%added new question to differentiate python and javascript
+question8(X8):-	write("Does your language support parallel?"),nl,
+				write("1. Yes"),nl,
+				write("0. NO"),nl,
+				read(X8).
 
 
 pr:-	question1(X1),question2(X2),question3(X3),question4(X4),
-		question5(X5),question6(X6),question7(X7),
+		question5(X5),question6(X6),question7(X7),question8(X8),
 		high(X,X1),decl(X,X2),interpret(X,X3),oop(X,X4),
-		cross(X,X5),visual(X,X6),mobile(X,X7),
+		cross(X,X5),visual(X,X6),mobile(X,X7),parallel(X,X8),
 		write(X).
