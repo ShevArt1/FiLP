@@ -179,9 +179,11 @@ question6(X6):-	write("Is your character mexican?"),nl,
 
 
 
-
 %play/0
-play:-	question1(X1),question2(X2),question3(X3),question4(X4),question5(X5),question6(X6),
+play:-	question1(X1),question2(X2),question3(X3),question4(X4),question5(X5),
+		(X1 =:= 0 -> dead(X,X1),moral(X,X2),criminal(X,X3),lawyer(X,X4),woman(X,X5),write(X);
+		X4 =:= 1 -> dead(X,X1),moral(X,X2),criminal(X,X3),lawyer(X,X4),woman(X,X5),write(X);
+		X5 =:= 1 -> dead(X,X1),moral(X,X2),criminal(X,X3),lawyer(X,X4),woman(X,X5),write(X);
+		question6(X6),
 		dead(X,X1),moral(X,X2),criminal(X,X3),lawyer(X,X4),woman(X,X5),mexican(X,X6),
-		write(X).
-
+		write(X)).
