@@ -22,3 +22,23 @@ ein4:- Friends=[_,_,_],
 		write(Friends),nl,
 		write("slesar "),write(WHO1),nl,write("tokar "),write(WHO2),nl,write("svarshik "),write(WHO3),!.
 
+
+%ein8/0 - logical task 8 from variant 3(what is Roman's speciality?)
+ein8:- Students=[_,_,_],
+
+		in_list(Students,[P,peter]),
+		in_list(Students,[R,roman]),
+		in_list(Students,[S,serg]),
+		in_list(Students,[math,_]),
+		in_list(Students,[chem,_]),
+		in_list(Students,[phys,_]),
+ 	
+ 		(
+            		(P = math, S \= phys);
+            		(R \= phys, P = math);
+            		(S \= math, R = chem)
+        	),
+
+		in_list(Students,[WHERE1,roman]),
+		write(Students),nl,
+		write(WHERE1).
