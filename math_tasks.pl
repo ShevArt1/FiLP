@@ -117,3 +117,36 @@ max_prost_del(X,Y):-max_del(X,0,1,A), max_del(X,1,1,B), max(A,B,M), Y is M.
 
 %nod_of_stuff(+X,-N)
 nod_of_stuff(X,N):-max_del(X,0,0,A),proiz_c(X,B),nod(A,B,N),nl,write("del"),write(A),nl,write("proiz"),write(B).
+
+%7
+
+%task39(+List) - write elements with odd index, then with even
+task39([H|T]):-write_elems([H|T]),write_elems(T),!.
+%write_elems(+List) - write current element, skip next
+write_elems([]).
+write_elems([H|T]):-write(H),nl,skip_el(T).
+%skip_el(+List) - skip current element 
+skip_el([]).
+skip_el([H|T]):-write_elems(T).
+
+%task44(+List) - do float and int elements alternate in the list
+task44(List):-check_alter(List),!.
+% check_alter(+List) - check if float and int elements are alternating
+check_alter([_]):- !.
+check_alter([Int, Float|Tail]):- integer(Int), float(Float), check_alter([Float|Tail]), !.
+check_alter([Float, Int|Tail]):- float(Float), integer(Int), check_alter([Int|Tail]), !.
+
+%task52(+N,-List) - create list of prime divisors of N
+task52(N,List):- add_del(N,List,2),!.
+%add_del(+N,?List,+D) - add number to list if it it prime divisor of N, else go to next, until N is 1
+add_del(1,[],_):-!.
+add_del(N,[D|List],D):-Ost is N mod D, Ost =:=0,prost(D),N1 is N div D, add_del(N1,List,D),!. 
+add_del(N,List,D):-NextD is D+1, add_del(N,List,NextD),!.
+
+%task57(+N) - enter list of N elements and count elements bigger than sum of all previous
+task57(N):-read_list(List,N),count_new_big(List,0,0,Count),write("Count="),write(Count).
+%count_new_big(+List,+Sum,+CurCount,?Res) - count elements bigger than sum of all previous
+count_new_big([],Sum,Count,Count):-!.
+count_new_big([H|T],Sum,CurCount,Res):-H>Sum, Count1 is CurCount+1, Sum1 is Sum+H,count_new_big(T,Sum1,Count1,Res),!.
+count_new_big([H|T],Sum,CurCount,Res):-Sum1 is Sum+H,count_new_big(T,Sum1,CurCount,Res),!.
+
