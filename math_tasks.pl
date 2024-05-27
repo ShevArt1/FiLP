@@ -93,6 +93,29 @@ prost(X):-prost(X,2),!.
 prost(X,X).
 prost(X,D):-X>D,Ost is X mod D, Ost\=0, D1 is D+1, prost(X,D1). 
 
+%3
+
+%is_global_max(+List, +Index) - is element at index global max
+is_global_max(List, Index) :-nth0(Index, List, Element),max_list(List, Max),Element =:= Max.
+
+%find_min_here(+List,+A,+B,-Min) find min element in interval
+find_min_here(List,A,B,Min):-nth0(A,List,El),CurMin is El,Ind is A+1,find_min_here(List,A,B,Ind,CurMin),Min is CurMin,!.
+%find_min_here(+List,+A,+B,+Ind,+CurMin)
+find_min_here(List,A,B,Ind,CurMin):-Ind>B,!.
+find_min_here(List,A,B,Ind,CurMin):-nth0(Ind,List,El),El<CurMin,NewMin is El,Ind1 is Ind+1,find_min_here(List,A,B,Ind1,NewMin),!.
+find_min_here(List,A,B,Ind,CurMin):-Ind1 is Ind+1,find_min_here(List,A,B,Ind1,CurMin),!.
+
+%count_min_here(+List,+A,+B,-Count) count minimum elements in interval
+count_min_here(List,A,B,Count) :- find(List,A,B,Min), count_min_here(List,A,B,Min,0)!.
+%count_min_here(+List,+A,+B,+Min,+Count)
+count_min_here(List,B,B,Min,Count):-!.
+count_min_here(List,A,B,Min,Count):-nth0(A,List,Min),Count1 is Count+1, A1 is A+1,count_min_here(List,A1,B,Min,Count1),!.
+count_min_here(List,A,B,Min,Count):-A1 is A+1,count_min_here(List,A1,B,Min,Count),!.
+
+%is_max_here(+List,+A,+B) - is max element of list i interval
+is_max_here(List,A,B) :- max_list(List, Max),nth0(Index, List, Max),Index>=A,B>=Index,!.
+
+
 
 %5
 
