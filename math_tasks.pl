@@ -64,3 +64,33 @@ remove_with_sum_number([HeadList|TailList], NeedSum, ResultList):-
         NeedSum is SumNumbers,
         remove_with_sum_number(TailList, NeedSum, ResultList), !.
 remove_with_sum_number([HeadList|TailList], NeedSum, ResultList):- append(ResultList, [HeadList], NewList), remove_with_sum_number(TailList, NeedSum, NewList), !.
+
+%2
+
+%nod(+A,+B,?C) - nod of A and B
+nod(A,0,A):-!.
+nod(_,0,_):-!,fail.
+nod(A,B,C):-Ost is A mod B, nod(B,Ost,C).
+
+
+%min_cifr(+Num) - min digit of a Num
+min_cifr(Num):-CurMin is Num mod 10, min_cifr(Num,CurMin),!.
+%min_cifr(+Num,+CurMin)
+min_cifr(Num,CurMin):-Num<10,Num>=CurMin,print(CurMin),nl.
+min_cifr(Num,CurMin):-Num<10,Num<CurMin,print(Num),nl.
+min_cifr(Num,CurMin):-Num1 is Num div 10,D is Num mod 10,(D<CurMin -> CurMin1 is D;CurMin1 is CurMin), min_cifr(Num1,CurMin1).
+
+%mul_cifr(+Num) - multiply all digits of Num which cant be divided by 5
+mult_cifr(Num):-mul_cifr(Num,1),!.
+%mul_cifr(+Num,+CurMul)
+mul_cifr(Num,CurMul):-Num<10,Ost is Num mod 5,Ost \= 0, Mul is CurMul*Num,print(Mul),nl.
+mul_cifr(Num,CurMul):-Num<10,print(CurMul),nl.
+mul_cifr(Num,CurMul):-Num1 is Num div 10,D is Num mod 10,Ost is D mod 5,(Ost \= 0-> Mul is CurMul*D; Mul is CurMul), mul_cifr(Num1,Mul).
+
+%prost(+X) - check if X is a prime number
+prost(X):-prost(X,2),!.
+%prost(+X,+D)
+prost(X,X).
+prost(X,D):-X>D,Ost is X mod D, Ost\=0, D1 is D+1, prost(X,D1). 
+
+
