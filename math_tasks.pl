@@ -94,3 +94,26 @@ prost(X,X).
 prost(X,D):-X>D,Ost is X mod D, Ost\=0, D1 is D+1, prost(X,D1). 
 
 
+%5
+
+%max_del(+X,+Chet,+Prost,-MaxDel) - find max divisor, even or odd, prime or not
+max_del(X,Chet,Prost,MaxDel):-max_del(X,X,Chet,Prost,MaxDel),!.
+%max_del(+X,+Cur,+Chet,+Prost,?MaxDel)
+max_del(X,0,Chet,Prost,1):-write("MaxDel not found, using 1 instead"),!.
+max_del(X,CurMax,Chet,Prost,MaxDel):- Mod is X mod CurMax, Mod\=0, NewMax is CurMax -1,max_del(X,NewMax,Chet,Prost,MaxDel),!.
+max_del(X,CurMax,1,1,CurMax):-Ost is CurMax mod 2,Ost=:=0,prost(CurMax),!.
+max_del(X,CurMax,0,1,CurMax):-Ost is CurMax mod 2,Ost=:=1,prost(CurMax),!.
+max_del(X,CurMax,1,0,CurMax):-Ost is CurMax mod 2,Ost=:=0,not(prost(CurMax)),!.
+max_del(X,CurMax,0,0,CurMax):-Ost is CurMax mod 2,Ost=:=1,not(prost(CurMax)),!.
+max_del(X,CurMax,Chet,Prost,MaxDel):-NewMax is CurMax - 1,max_del(X,NewMax,Chet,Prost,MaxDel),!.
+
+
+%proiz_c(+N,?P) - multiply all digits of a number
+proiz_c(0,1):-!.
+proiz_c(N,P):-N1 is N div 10,Ost is N mod 10,proiz_c(N1,X1),P is Ost*X1.
+
+%max_prost_del(+X,-Y) - find max prime divisor of X
+max_prost_del(X,Y):-max_del(X,0,1,A), max_del(X,1,1,B), max(A,B,M), Y is M.
+
+%nod_of_stuff(+X,-N)
+nod_of_stuff(X,N):-max_del(X,0,0,A),proiz_c(X,B),nod(A,B,N),nl,write("del"),write(A),nl,write("proiz"),write(B).
